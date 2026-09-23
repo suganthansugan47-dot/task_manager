@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard · Tasklog</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <span class="brand">Tasklog</span>
+    <div class="who">
+      <span class="username" id="username-display"></span>
+      <button class="btn btn-secondary" id="logout-btn">Log out</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="stats-row">
+      <div class="stat-tile total">
+        <div class="num" id="stat-total">0</div>
+        <div class="label">Total tasks</div>
+      </div>
+      <div class="stat-tile pending">
+        <div class="num" id="stat-pending">0</div>
+        <div class="label">Pending</div>
+      </div>
+      <div class="stat-tile progress">
+        <div class="num" id="stat-progress">0</div>
+        <div class="label">In progress</div>
+      </div>
+      <div class="stat-tile completed">
+        <div class="num" id="stat-completed">0</div>
+        <div class="label">Completed</div>
+      </div>
+    </section>
+
+    <section class="toolbar">
+      <input type="search" id="search-input" placeholder="Search tasks by title…" />
+      <select id="status-filter">
+        <option value="">All statuses</option>
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+      <select id="priority-filter">
+        <option value="">All priorities</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+      <button class="btn btn-primary" id="new-task-btn">+ New task</button>
+    </section>
+
+    <div id="error-banner" class="error-banner"></div>
+
+    <section id="task-grid" class="task-grid"></section>
+
+    <div id="empty-state" class="empty-state" style="display:none;">
+      <p>No tasks match yet. Create one to get started.</p>
+      <button class="btn btn-primary" id="empty-new-task-btn">+ New task</button>
+    </div>
+  </main>
+
+  <!-- Create / edit task modal -->
+  <div class="modal-overlay hidden" id="task-modal">
+    <div class="modal-panel">
+      <h2 id="task-modal-title">New task</h2>
+      <form id="task-form">
+        <input type="hidden" id="task-id" />
+        <div class="field">
+          <label for="task-title">Title</label>
+          <input type="text" id="task-title" required maxlength="200" />
+        </div>
+        <div class="field">
+          <label for="task-description">Description</label>
+          <textarea id="task-description" maxlength="2000"></textarea>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="task-status">Status</label>
+            <select id="task-status">
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="task-priority">Priority</label>
+            <select id="task-priority">
+              <option value="Low">Low</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="task-due-date">Due date</label>
+          <input type="date" id="task-due-date" />
+        </div>
+        <div class="error-banner" id="task-form-error"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="task-cancel-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="task-save-btn">Save task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete confirmation modal -->
+  <div class="modal-overlay hidden" id="confirm-modal">
+    <div class="modal-panel confirm-panel">
+      <h2>Delete this task?</h2>
+      <p>This can't be undone.</p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" id="confirm-cancel-btn">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirm-delete-btn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

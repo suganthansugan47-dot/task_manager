@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tasklog</title>
+</head>
+<body>
+  <script>
+    // No landing page needed: send the visitor straight to the right place.
+    window.location.replace(localStorage.getItem("tasklog_token") ? "dashboard.html" : "login.html");
+  </script>
+</body>
+</html>
